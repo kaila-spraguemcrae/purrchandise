@@ -38,18 +38,19 @@ class ProductControl extends React.Component {
     this.setState({selectedProduct: selectedProduct});
   }
 
-  // handleDeletingProductFromList= (id) => { const newList = this.this.state.masterProductList.splice(id);
-  //   this.setState({
-  //     masterProductList: newList,
-  //     formVisibleOnPage: false
-  //   });
-  // }
+  handleDeletingProduct = (id) => {
+    const newMasterProductList = this.state.masterProductList.filter(product => product.id !== id);
+    this.setState({
+      masterProductList: newMasterProductList,
+      selectedProduct: null
+    });
+  }
 
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.selectedProduct != null){
-      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} />
+      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} onClickingDelete = {this.handleDeletingProduct} />
       buttonText = "Return to Product List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
@@ -61,7 +62,6 @@ class ProductControl extends React.Component {
     return (
       <>
         {currentlyVisibleState}
-        {/* <button onClick={()=>this.handleDeletingProductFromList(this.state.id)}>Delete</button> */}
         <button onClick={this.handleClick}>{buttonText}</button>
       </>
     );

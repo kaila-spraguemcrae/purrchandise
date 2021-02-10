@@ -4,11 +4,6 @@ import PropTypes from 'prop-types';
 
 function ProductList(props){
 
-  // function handleDelete(id){
-  //   props.productList.filter((product) => product.id !== id);
-  //   console.log(props.productList);
-  // }
-  //delete according to product id. 
   return (
     <>
       {props.productList.map((product)=>
@@ -22,7 +17,6 @@ function ProductList(props){
         quantity={product.quantity}
         id={product.id}
         key={product.id}  />
-        {/* <button type="button" onClick={() => handleDelete(product.id)}>Delete</button> */}
       </div>
       )}
     </>
