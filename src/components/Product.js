@@ -7,10 +7,7 @@ function Product(props){
       <div className="card" onClick= {() => props.whenProductClicked(props.id)}>
         <div className="container">
           <h3>{props.name}</h3>
-          <p>Category: {props.category}</p>
-          <p>Description: {props.description}</p>
-          <p>{props.price}</p>
-          <p>{props.quantity} in stock.</p>
+          <p>${props.price}</p>
         </div>
       </div>
     </>

@@ -13,11 +13,14 @@ function ProductList(props){
     <>
       {props.productList.map((product)=>
       <div>
-        <Product name={product.name}
+        <Product 
+        whenProductClicked ={props.onProductSelection}
+        name={product.name}
         category={product.category}
         description={product.description}
         price={product.price}
         quantity={product.quantity}
+        id={product.id}
         key={product.id}  />
         {/* <button type="button" onClick={() => handleDelete(product.id)}>Delete</button> */}
       </div>
@@ -27,7 +30,8 @@ function ProductList(props){
 }
 
 ProductList.propTypes = {
-  productList: PropTypes.array
+  productList: PropTypes.array,
+  onProductSelected: PropTypes.func
 };
 
 export default ProductList;

@@ -10,7 +10,7 @@ function ProductDetail(props){
         <h3>{product.name}</h3>
         <p>Category: {product.category}</p>
         <p>Description: {product.description}</p>
-        <p>{product.price}</p>
+        <p>${product.price}</p>
         <p>{product.quantity} in stock.</p>
       </div>
     </>
