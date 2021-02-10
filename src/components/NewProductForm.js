@@ -8,6 +8,7 @@ function NewProductForm(props){
     event.preventDefault();
     props.onNewProductCreation({name: event.target.name.value, category: event.target.category.value, description: event.target.description.value, price: event.target.price.value, quantity: event.target.quantity.value, id: v4()});
   }
+  
   return (
     <>
       <form onSubmit={handleNewProductFormSubmission}>

@@ -1,13 +1,15 @@
 import React from 'react';
 import ProductList from './ProductList';
 import NewProductForm from './NewProductForm';
+import ProductDetail from './ProductDetail';
 
 class ProductControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       formVisibleOnPage: false,
-      masterProductList: []
+      masterProductList: [],
+      selectedProduct: null
     };
   }
 
@@ -24,19 +26,35 @@ class ProductControl extends React.Component {
     });
   }
 
+  handleChangingSelectedProduct = (id) => {
+    const selectedProduct = this.state.masterProductList.filter(product => product.id === id)[0];
+    this.setState({selectedProduct: selectedProduct});
+  }
+
+  // handleDeletingProductFromList= (id) => { const newList = this.this.state.masterProductList.splice(id);
+  //   this.setState({
+  //     masterProductList: newList,
+  //     formVisibleOnPage: false
+  //   });
+  // }
+
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.formVisibleOnPage) {
+    if (this.state.selectedProduct != null){
+      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} />
+      buttonText = "Return to Product List";
+    } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
       buttonText = "Return to product List";
     } else {
-      currentlyVisibleState = <ProductList productList = {this.state.masterProductList} />;
+      currentlyVisibleState = <ProductList productList = {this.state.masterProductList} onProductSelection={this.handleChangingSelectedProduct} />;
       buttonText = "Add Product";
     }
     return (
       <>
         {currentlyVisibleState}
+        {/* <button onClick={()=>this.handleDeletingProductFromList(this.state.id)}>Delete</button> */}
         <button onClick={this.handleClick}>{buttonText}</button>
       </>
     );
@@ -44,3 +62,4 @@ class ProductControl extends React.Component {
 }
 
 export default ProductControl;
+
