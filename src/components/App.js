@@ -1,10 +1,12 @@
 import React from 'react';
-import Product from "./Product"
+import ProductControl from "./ProductControl"
 
 function App() {
   return (
     <>
-      <Product />
+      <div className='container'>
+        <ProductControl />
+      </div>
     </>
   );
 }
