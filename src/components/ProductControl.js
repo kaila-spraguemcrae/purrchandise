@@ -48,33 +48,31 @@ class ProductControl extends React.Component {
 
   handleBuyProduct = (id) => {
     const newMasterProductList = this.state.masterProductList.map((product)=> ({
-      // console.log(product.id)
-      // console.log(id)
-      // console.log(product)
-      // if(product.quantity === 0) {
-      //   return({...product,
-      //     quantity: "Is Currently Out of Stock."
-      //   });
-      // } else if(product.quantity > 0) {
-      //   return
-        ...product, 
-          quantity: product.id === id ? product.quantity -1 : product.quantity 
-        
-      // }
+      ...product, 
+        quantity: product.id === id ? product.quantity -1 : product.quantity 
     }))
     this.setState({
       masterProductList: newMasterProductList,
       selectedProduct: null
     });
-    
-    console.log(this.state.masterProductList);
+  }
+
+  handleRestockProduct = (id, restockAmount) => {
+    const newMasterProductList = this.state.masterProductList.map((product)=> ({
+      ...product, 
+        quantity: product.id === id ? parseInt(product.quantity) + parseInt(restockAmount) : product.quantity 
+    }))
+    this.setState({
+      masterProductList: newMasterProductList,
+      selectedProduct: null
+    });
   }
   
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.selectedProduct != null){
-      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} onClickingDelete = {this.handleDeletingProduct} onClickingBuy = {this.handleBuyProduct}/>
+      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} onClickingDelete = {this.handleDeletingProduct} onClickingBuy = {this.handleBuyProduct} onClickingRestock = {this.handleRestockProduct}/>
       buttonText = "Return to Product List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
