@@ -8,6 +8,7 @@ function Product(props){
         <div className="container">
           <h3>{props.name}</h3>
           <p>${props.price}</p>
+          <p>{props.quantity} in Stock.</p>
         </div>
       </div>
     </>
