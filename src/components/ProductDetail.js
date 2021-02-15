@@ -21,12 +21,14 @@ function ProductDetail(props){
           <p>Description: {product.description}</p>
           <p>${product.price}</p>
           <p>{stockMessage}</p>
+          
           <button hidden={product.quantity===0} onClick={()=> onClickingBuy(product.id)}>Buy</button>
     
             <input ref={numberInput} type='number' name='restock' placeholder='Product restock quantity'/>
             <button onClick={()=> onClickingRestock(product.id, numberInput.current.value)}>Restock</button>
 
           <button onClick={()=> onClickingDelete(product.id)}>Delete Product</button>
+          <button onClick={props.onClickingEdit}>Update Product</button>
         </div>
       </>
     );
@@ -36,6 +38,7 @@ function ProductDetail(props){
 ProductDetail.propTypes = {
   product: PropTypes.object,
   onClickingDelete: PropTypes.func,
+  onClickingEdit: PropTypes.func,
   onClickingBuy: PropTypes.func,
   onClickingRestock: PropTypes.func
 };

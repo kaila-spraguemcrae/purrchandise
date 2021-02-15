@@ -2,6 +2,7 @@ import React from 'react';
 import ProductList from './ProductList';
 import NewProductForm from './NewProductForm';
 import ProductDetail from './ProductDetail';
+import EditProductForm from './EditProductForm';
 
 class ProductControl extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class ProductControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       masterProductList: [],
-      selectedProduct: null
+      selectedProduct: null,
+      editing: false
     };
   }
 
@@ -17,13 +19,18 @@ class ProductControl extends React.Component {
     if (this.state.selectedProduct != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedProduct: null
+        selectedProduct: null,
+        editing: false
       });
     } else {
       this.setState(prevState => ({
         formVisibleOnPage: !prevState.formVisibleOnPage
       }));
     }
+  }
+
+  handleEditClick = () => {
+    this.setState({editing: true});
   }
 
   handleAddingNewProductToList = (newProduct) => { const newMasterProductList = this.state.masterProductList.concat(newProduct);
@@ -67,12 +74,35 @@ class ProductControl extends React.Component {
       selectedProduct: null
     });
   }
+
+  handleEditingProductInList = (productToEdit) => {
+    const editedMasterProductList = this.state.masterProductList
+      .filter(product => product.id !== this.state.selectedProduct.id)
+      .concat(productToEdit);
+    this.setState({
+      masterProductList: editedMasterProductList,
+      editing: false,
+      selectedProduct: null
+    });
+  }
   
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if (this.state.selectedProduct != null){
-      currentlyVisibleState = <ProductDetail product = {this.state.selectedProduct} onClickingDelete = {this.handleDeletingProduct} onClickingBuy = {this.handleBuyProduct} onClickingRestock = {this.handleRestockProduct}/>
+    if(this.state.editing){
+      currentlyVisibleState = 
+      <EditProductForm
+        product = {this.state.selectedProduct}
+        onEditProduct = {this.handleEditingProductInList} />
+      buttonText = "Return to List";
+    } else if (this.state.selectedProduct != null){
+      currentlyVisibleState = 
+      <ProductDetail 
+        product = {this.state.selectedProduct} 
+        onClickingDelete = {this.handleDeletingProduct}
+        onClickingEdit = {this.handleEditClick}
+        onClickingBuy = {this.handleBuyProduct}
+        onClickingRestock = {this.handleRestockProduct}/>
       buttonText = "Return to Product List";
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
