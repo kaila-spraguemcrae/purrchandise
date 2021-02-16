@@ -6,7 +6,7 @@ function ProductList(props){
 
   return (
     <>
-      {props.productList.map((product)=>
+      {Object.values(props.productList).map((product)=>
       <div>
         <Product 
         whenProductClicked ={props.onProductSelection}
@@ -24,7 +24,7 @@ function ProductList(props){
 }
 
 ProductList.propTypes = {
-  productList: PropTypes.array,
+  productList: PropTypes.object,
   onProductSelected: PropTypes.func
 };
 
