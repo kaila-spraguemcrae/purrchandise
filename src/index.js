@@ -7,8 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import reducer from './reducers/product-list-reducer';
 import { Provider } from 'react-redux';
+import rootReducer from './reducers/index';
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
+//const store = createStore(reducer);
 
 store.subscribe(()=>
   console.log(store.getState())
