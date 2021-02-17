@@ -49,10 +49,7 @@ class ProductControl extends React.Component {
 
   handleDeletingProduct = (id) => {
     const { dispatch } = this.props;
-    const action ={
-      type: 'DELETE_PRODUCT',
-      id: id
-    }
+    const action = a.deleteProduct(id);
     dispatch(action);
     this.setState({
       selectedProduct: null
@@ -83,16 +80,7 @@ class ProductControl extends React.Component {
 
   handleEditingProductInList = (productToEdit) => {
     const {dispatch} = this.props;
-    const { name, category, description, price, quantity, id} = productToEdit;
-    const action = {
-      type: 'ADD_PRODUCT',
-      name: name,
-      category: category,
-      description: description,
-      price: price,
-      quantity: quantity,
-      id: id
-    }
+    const action = a.addProduct(productToEdit);
     dispatch(action);
     this.setState({
       editing: false,

@@ -19,7 +19,7 @@ describe('help queue actions', ()=>{
       name: "Coffee Mug",
       category: "Drinkware",
       description: "a vessel for fluids",
-      price: "10.00",
+      prices: "10.00",
       quantity: 4,
       id: 1
     });
