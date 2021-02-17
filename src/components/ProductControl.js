@@ -5,6 +5,7 @@ import ProductDetail from './ProductDetail';
 import EditProductForm from './EditProductForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import * as a from './../actions';
 
 class ProductControl extends React.Component {
   constructor(props) {
@@ -24,9 +25,7 @@ class ProductControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
@@ -37,20 +36,9 @@ class ProductControl extends React.Component {
 
   handleAddingNewProductToList = (newProduct) => { 
     const { dispatch } = this.props;
-    const { name, category, description, price, quantity, id } = newProduct;
-    const action = {
-      type: 'ADD_PRODUCT',
-      name: name,
-      category: category,
-      description: description,
-      price: price,
-      quantity: quantity,
-      id: id
-    }
+    const action = a.addProduct(newProduct);
     dispatch(action);
-    const action2 = {
-      type: 'TOGGLE_FORM'
-    }
+    const action2 = a.toggleForm();
     dispatch(action2);
   }
 
