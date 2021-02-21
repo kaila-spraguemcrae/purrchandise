@@ -6,6 +6,7 @@ import EditProductForm from './EditProductForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as a from './../actions';
+import { withFirestore } from 'react-redux-firebase';
 
 class ProductControl extends React.Component {
   constructor(props) {
@@ -41,8 +42,17 @@ class ProductControl extends React.Component {
   }
 
   handleChangingSelectedProduct = (id) => {
-    const selectedProduct = this.props.masterProductList[id];
-    this.setState({selectedProduct: selectedProduct});
+    this.props.firestore.get({collection: 'products', doc: id}).then((product) => {
+      const firestoreProduct = {
+        name: product.get("name"),
+        category: product.get("product"),
+        description: product.get("description"),
+        price: product.get("price"),
+        quantity: quantity.get("quantity"),
+        id: product.id
+      }
+      this.setState({selectedProduct: firestoreProduct});
+    });
   }
 
   handleDeletingProduct = (id) => {
@@ -134,5 +144,5 @@ const mapStateToProps = state => {
 
 ProductControl = connect(mapStateToProps)(ProductControl);
 
-export default ProductControl;
+export default withFirestore(ProductControl);
 

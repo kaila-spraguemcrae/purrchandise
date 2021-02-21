@@ -1,19 +1,31 @@
 import React from 'react';
-import { v4 } from 'uuid';
+// import { v4 } from 'uuid';
 import PropTypes from 'prop-types';
 import ReusableForm from './ReusableForm';
+import { useFirestore } from 'react-redux-firebase';
 
 function NewProductForm(props){
 
-  function handleNewProductFormSubmission(event) {
+  const firestore = useFirestore();
+
+  function addProductToFirestore(event) {
     event.preventDefault();
-    props.onNewProductCreation({name: event.target.name.value, category: event.target.category.value, description: event.target.description.value, price: event.target.price.value, quantity: event.target.quantity.value, id: v4()});
+    props.onNewProductCreation();
+
+    return firestore.collection('products').add(
+      {
+        name: event.target.name.value, category: event.target.category.value, 
+        description: event.target.description.value, 
+        price: event.target.price.value, 
+        quantity: event.target.quantity.value
+      }
+    );
   }
   
   return (
     <>
       <ReusableForm
-        formSubmissionHandler={handleNewProductFormSubmission}
+        formSubmissionHandler={addProductToFirestore}
         buttonText="Submit!"/>
     </> 
   );
