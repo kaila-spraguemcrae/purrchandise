@@ -86,15 +86,12 @@ class ProductControl extends React.Component {
     });
   }
 
-  // handleEditingProductInList = (productToEdit) => {
-  //   const {dispatch} = this.props;
-  //   const action = a.addProduct(productToEdit);
-  //   dispatch(action);
-  //   this.setState({
-  //     editing: false,
-  //     selectedProduct: null
-  //   });
-  // }
+  handleEditingProductInList = () => {
+    this.setState({
+      editing: false,
+      selectedProduct: null
+    });
+  }
   
   render(){
     let currentlyVisibleState = null;
