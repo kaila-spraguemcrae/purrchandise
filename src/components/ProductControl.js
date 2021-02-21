@@ -34,12 +34,10 @@ class ProductControl extends React.Component {
     this.setState({editing: true});
   }
 
-  handleAddingNewProductToList = (newProduct) => { 
+  handleAddingNewProductToList = () => { 
     const { dispatch } = this.props;
-    const action = a.addProduct(newProduct);
+    const action = a.toggleForm();
     dispatch(action);
-    const action2 = a.toggleForm();
-    dispatch(action2);
   }
 
   handleChangingSelectedProduct = (id) => {
@@ -78,15 +76,15 @@ class ProductControl extends React.Component {
     });
   }
 
-  handleEditingProductInList = (productToEdit) => {
-    const {dispatch} = this.props;
-    const action = a.addProduct(productToEdit);
-    dispatch(action);
-    this.setState({
-      editing: false,
-      selectedProduct: null
-    });
-  }
+  // handleEditingProductInList = (productToEdit) => {
+  //   const {dispatch} = this.props;
+  //   const action = a.addProduct(productToEdit);
+  //   dispatch(action);
+  //   this.setState({
+  //     editing: false,
+  //     selectedProduct: null
+  //   });
+  // }
   
   render(){
     let currentlyVisibleState = null;
