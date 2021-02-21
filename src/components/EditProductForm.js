@@ -5,7 +5,7 @@ import { useFirestore } from 'react-redux-firebase';
 
 function EditProductForm (props) {
   const firestore = useFirestore();
-  // ?? const { product } = props;
+  const { product } = props;
 
   function handleEditFormSubmission(event) {
     event.preventDefault();
@@ -16,7 +16,6 @@ function EditProductForm (props) {
       description: event.target.description.value,
       price: event.target.price.value,
       quantity: event.target.quantity.value,
-
     }
     return firestore.update({collection: 'products', doc: product.id}, propertiesToUpdate)
   }
