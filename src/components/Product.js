@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function Product(props){
   return (
     <>
-      <div className="card" onClick= {() => props.whenProductClicked(props.id)}>
+      <div className="card" id= "product-list-item"onClick= {() => props.whenProductClicked(props.id)}>
         <div className="container">
           <h3>{props.name}</h3>
           <p>${props.price}</p>

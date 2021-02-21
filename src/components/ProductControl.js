@@ -121,7 +121,7 @@ class ProductControl extends React.Component {
     return (
       <>
         {currentlyVisibleState}
-        <button onClick={this.handleClick}>{buttonText}</button>
+        <button className="btn btn-secondary" onClick={this.handleClick}>{buttonText}</button>
       </>
     );
   }
