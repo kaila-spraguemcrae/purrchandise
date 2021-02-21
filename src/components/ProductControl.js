@@ -48,7 +48,7 @@ class ProductControl extends React.Component {
         category: product.get("product"),
         description: product.get("description"),
         price: product.get("price"),
-        quantity: quantity.get("quantity"),
+        quantity: product.get("quantity"),
         id: product.id
       }
       this.setState({selectedProduct: firestoreProduct});
