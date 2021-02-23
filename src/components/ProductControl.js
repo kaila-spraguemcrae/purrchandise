@@ -6,7 +6,8 @@ import EditProductForm from './EditProductForm';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import * as a from './../actions';
-import { withFirestore } from 'react-redux-firebase';
+import { withFirestore, isLoaded } from 'react-redux-firebase';
+
 
 class ProductControl extends React.Component {
   constructor(props) {
@@ -94,27 +95,44 @@ class ProductControl extends React.Component {
   render(){
     let currentlyVisibleState = null;
     let buttonText = null;
-    if(this.state.editing){
-      currentlyVisibleState = 
-      <EditProductForm
-        product = {this.state.selectedProduct}
-        onEditProduct = {this.handleEditingProductInList} />
-      buttonText = "Return to List";
-    } else if (this.state.selectedProduct != null){
-      currentlyVisibleState = 
-      <ProductDetail 
-        product = {this.state.selectedProduct} 
-        onClickingDelete = {this.handleDeletingProduct}
-        onClickingEdit = {this.handleEditClick}
-        onClickingBuy = {this.handleBuyProduct}
-        onClickingRestock = {this.handleRestockProduct}/>
-      buttonText = "Return to Product List";
-    } else if (this.props.formVisibleOnPage) {
-      currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
-      buttonText = "Return to product List";
-    } else {
-      currentlyVisibleState = <ProductList productList = {this.props.masterProductList} onProductSelection={this.handleChangingSelectedProduct} />;
-      buttonText = "Add Product";
+    const auth = this.props.firebase.auth();
+    if(!isLoaded(auth)){
+      return (
+        <>
+          <h1>...Loading</h1>
+        </>
+      )
+    }
+    if ((isLoaded(auth)) && (auth.currentUser == null)){
+      return (
+        <>
+          <h1>You must be signed in</h1>
+        </>
+      )
+    }
+    if ((isLoaded(auth)) && (auth.currentUser != null)) {
+      if(this.state.editing){
+        currentlyVisibleState = 
+        <EditProductForm
+          product = {this.state.selectedProduct}
+          onEditProduct = {this.handleEditingProductInList} />
+        buttonText = "Return to List";
+      } else if (this.state.selectedProduct != null){
+        currentlyVisibleState = 
+        <ProductDetail 
+          product = {this.state.selectedProduct} 
+          onClickingDelete = {this.handleDeletingProduct}
+          onClickingEdit = {this.handleEditClick}
+          onClickingBuy = {this.handleBuyProduct}
+          onClickingRestock = {this.handleRestockProduct}/>
+        buttonText = "Return to Product List";
+      } else if (this.props.formVisibleOnPage) {
+        currentlyVisibleState = <NewProductForm onNewProductCreation = {this.handleAddingNewProductToList} />;
+        buttonText = "Return to product List";
+      } else {
+        currentlyVisibleState = <ProductList productList = {this.props.masterProductList} onProductSelection={this.handleChangingSelectedProduct} />;
+        buttonText = "Add Product";
+      }
     }
     return (
       <>
